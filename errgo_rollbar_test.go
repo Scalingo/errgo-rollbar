@@ -2,17 +2,16 @@ package errgorollbar
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"testing"
 
-	"github.com/stvp/rollbar"
+	"github.com/rollbar/rollbar-go"
 	"gopkg.in/errgo.v1"
 )
 
 func init() {
-	rollbar.Environment = "test"
-	rollbar.Token = os.Getenv("TOKEN")
+	rollbar.SetEnvironment("test")
+	rollbar.SetToken(os.Getenv("TOKEN"))
 }
 
 func a() error {
@@ -32,28 +31,32 @@ func note() error {
 }
 
 func TestBuildStack(t *testing.T) {
-	stack := BuildStack(note())
-	if len(stack) != 4 {
-		t.Errorf("len(stack) = %d != 4", len(stack))
+	werr := Wrap(note().Error(), note(), 0)
+	stack := werr.Stack()
+	// Stack: a() -> b() -> c() -> note() -> TestBuildStack() -> testing.TestRunner() -> runtime.main()
+	if len(stack) != 7 {
+		t.Errorf("len(stack) = %d != 7", len(stack))
 	}
-	fmt.Printf("%+v\n", stack)
 
-	stack = BuildStack(c())
+	werr = Wrap(c().Error(), c(), 0)
+	stack = werr.Stack()
+	if len(stack) != 6 {
+		t.Errorf("len(stack) = %d != 6", len(stack))
+	}
+
+	werr = Wrap("test empty", nil, 0)
+	stack = werr.Stack()
 	if len(stack) != 3 {
 		t.Errorf("len(stack) = %d != 3", len(stack))
 	}
 
-	stack = BuildStack(nil)
-	if len(stack) != 0 {
-		t.Errorf("len(stack) = %d != 0", len(stack))
+	werr = Wrap("error", errors.New("error"), 0)
+	stack = werr.Stack()
+	if len(stack) != 3 {
+		t.Errorf("len(stack) = %d != 3", len(stack))
 	}
 
-	stack = BuildStack(errors.New("error"))
-	if len(stack) != 0 {
-		t.Errorf("len(stack) = %d != 0", len(stack))
-	}
-
-	err := c()
-	rollbar.ErrorWithStack(rollbar.ERR, err, BuildStack(err))
+	err := Wrap(c().Error(), c(), 0)
+	rollbar.Error(rollbar.ERR, err)
 	rollbar.Wait()
 }
