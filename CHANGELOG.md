@@ -1,7 +1,14 @@
-# v0.1.1 - 22 Oct 2019
+# Changelog
+
+## To be Released
+
+* Migrate to Go Modules
+* Update various dependencies
+
+## v0.1.1
 
 * rollbar.CauseStacker (legacy) -> rollbar.Stacker
 
-# v0.1.0 - 22 Oct 2019
+## v0.1.0
 
 * Compatibility with rollbar-go 1.2
