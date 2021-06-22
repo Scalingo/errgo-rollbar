@@ -2,6 +2,8 @@
 
 ## To be Released
 
+## v0.2.0
+
 * Migrate to Go Modules
 * Update various dependencies
 

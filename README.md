@@ -1,4 +1,4 @@
-## Rollbar - Errgo binding v0.1.1
+## Rollbar - Errgo binding v0.2.0
 
 Rollbar Go client: `https://github.com/stvp/rollbar`
 Errgo: `https://github.com/go-errgo/errgo`
@@ -43,8 +43,8 @@ Commit, tag and create a new release:
 
 ```sh
 git add CHANGELOG.md README.md
-git commit -m "Bump v0.1.1"
-git tag v0.1.1
+git commit -m "Bump v0.2.0"
+git tag v0.2.0
 git push origin master
 git push --tags
 ```
