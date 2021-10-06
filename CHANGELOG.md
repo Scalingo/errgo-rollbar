@@ -2,7 +2,7 @@
 
 ## To be Released
 
-* bump github.com/rollbar/rollbar-go from 1.4.0 to 1.4.1
+* bump github.com/rollbar/rollbar-go from 1.4.0 to 1.4.2
 
 ## v0.2.0
 
