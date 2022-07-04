@@ -2,6 +2,8 @@
 
 ## To be Released
 
+* chore(deps): bump github.com/rollbar/rollbar-go from 1.4.2 to 1.4.4
+
 ## v0.2.1
 
 * chore(go): use go 1.17
