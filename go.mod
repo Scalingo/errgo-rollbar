@@ -1,6 +1,6 @@
 module github.com/Scalingo/errgo-rollbar
 
-go 1.17
+go 1.20
 
 require (
 	github.com/rollbar/rollbar-go v1.4.5
